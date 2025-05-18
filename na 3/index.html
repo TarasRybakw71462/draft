@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kwiaciarnia - Zamów bukiet</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="form-container">
+    <h1>Zamów aranżację kwiatową</h1>
+    <form id="orderForm">
+      <label for="bouquet">Rodzaj bukietu:</label>
+      <select id="bouquet" required>
+        <option value="">-- Wybierz --</option>
+        <option value="różowy różany">Różowy różany</option>
+        <option value="biały lilak">Biały lilak</option>
+        <option value="bordowe chryzantemy">Bordowe chryzantemy</option>
+      </select>
+      <span id="bouquetError" class="error"></span>
+
+      <label for="quantity">Liczba bukietów:</label>
+      <input type="number" id="quantity" min="1" required />
+      <span id="quantityError" class="error"></span>
+
+      <label for="firstName">Imię:</label>
+      <input type="text" id="firstName" required />
+      <span id="firstNameError" class="error"></span>
+
+      <label for="lastName">Nazwisko:</label>
+      <input type="text" id="lastName" required />
+      <span id="lastNameError" class="error"></span>
+
+      <label for="phone">Numer telefonu:</label>
+      <input type="tel" id="phone" required />
+      <span id="phoneError" class="error"></span>
+
+      <label for="email">Adres email:</label>
+      <input type="email" id="email" required />
+      <span id="emailError" class="error"></span>
+
+      <button type="submit">Zamów</button>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

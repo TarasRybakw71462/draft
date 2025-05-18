@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Zamów bukiet</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="form-container">
+    <h1>Zamów aranżację kwiatową</h1>
+    <form id="orderForm">
+      <!-- Bukiet -->
+    
+<fieldset>
+  <legend>Wybierz bukiety:</legend>
+
+  <label>
+    <input type="checkbox" class="bouquet" data-price="50" id="bouquet1" />
+    Różowy różany (50 zł)
+    <input type="number" id="quantity1" class="quantity" min="1" disabled />
+  </label><br>
+
+  <label>
+    <input type="checkbox" class="bouquet" data-price="45" id="bouquet2" />
+    Biały lilak (45 zł)
+    <input type="number" id="quantity2" class="quantity" min="1" disabled />
+  </label><br>
+
+  <label>
+    <input type="checkbox" class="bouquet" data-price="40" id="bouquet3" />
+    Bordowe chryzantemy (40 zł)
+    <input type="number" id="quantity3" class="quantity" min="1" disabled />
+  </label>
+</fieldset>
+<span id="bouquetError" class="error"></span>
+
+
+      <!-- Dodatkowe usługi -->
+      <fieldset>
+        <legend>Dodatkowe usługi:</legend>
+        <label><input type="checkbox" class="service" value="20" /> Dostawa na wydarzenie (+20 zł)</label><br>
+        <label><input type="checkbox" class="service" value="15" /> Dodatkowa dekoracja (+15 zł)</label><br>
+        <label><input type="checkbox" class="service" value="5" /> Karteczka z życzeniami (+5 zł)</label>
+      </fieldset>
+
+      <!-- Uwagi specjalne -->
+      <label for="notes">Uwagi specjalne:</label>
+      <textarea id="notes" rows="3"></textarea>
+
+      <!-- Kontakt -->
+      <label for="firstName">Imię:</label>
+      <input type="text" id="firstName" required />
+      <span id="firstNameError" class="error"></span>
+
+      <label for="lastName">Nazwisko:</label>
+      <input type="text" id="lastName" required />
+      <span id="lastNameError" class="error"></span>
+
+      <label for="phone">Numer telefonu:</label>
+      <input type="tel" id="phone" required />
+      <span id="phoneError" class="error"></span>
+
+      <label for="email">Adres email:</label>
+      <input type="email" id="email" required />
+      <span id="emailError" class="error"></span>
+
+      <!-- Cena całkowita -->
+      <div id="totalPrice">Łączna cena: 0 zł</div>
+
+      <!-- Przycisk -->
+      <button type="submit" id="submitBtn">Zamów</button>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

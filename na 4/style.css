@@ -1,0 +1,73 @@
+body { /* Ogólne style strony */
+  font-family: Arial, sans-serif;
+  background-color: yellowgreen;
+  margin: 0;
+  padding: 0;
+}
+/* Styl formularza */
+#form-container {
+  max-width: 550px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: orange;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color:purple;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label, fieldset, textarea {
+  margin-top: 10px;
+}
+
+input, select, textarea {
+  padding: 8px;
+  margin-top: 4px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  width: 100%;
+}
+
+fieldset {
+  border: 1px solid gray;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.error {/*  błęd */
+  color: red;
+  font-size: 0.85em;
+}
+
+#totalPrice {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 15px;
+  color: black;
+}
+
+#submitBtn {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: purple;
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#submitBtn:hover {
+  background-color: #c22470;
+}
