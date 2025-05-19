@@ -6,12 +6,12 @@ body { /* Ogólne style strony */
 }
 /* Styl formularza */
 #form-container {
-  max-width: 550px;
+  max-width: 554px;
   margin: 40px auto;
   padding: 20px;
   background-color: orange;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 11px;
+  box-shadow: 0 0 11px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -54,17 +54,12 @@ fieldset {
   margin-top: 15px;
   color: black;
 }
-
+/* Przycisk zamówienia */
 #submitBtn {
   margin-top: 20px;
   padding: 12px;
   background-color: purple;
   color: white;
-  font-size: 1.1em;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
