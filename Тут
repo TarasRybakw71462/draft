@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Zapisy na warsztaty kulinarne</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Zapisy na warsztaty kulinarne</h1>
+
+    <!-- Formularz zapisu -->
+    <form id="formularzWarsztaty">
+      <label for="imieNazwisko">Imię i nazwisko:</label>
+      <input type="text" id="imieNazwisko" required>
+      <span class="blad" id="bladNazwisko"></span>
+
+      <label for="email">Adres email:</label>
+      <input type="email" id="email" required>
+      <span class="blad" id="bladEmail"></span>
+
+      <label for="temat">Temat warsztatu:</label>
+      <select id="temat" required>
+        <option value="">-- Wybierz temat --</option>
+        <option value="wloska">Kuchnia włoska</option>
+        <option value="azjatycka">Kuchnia azjatycka</option>
+        <option value="francuska">Kuchnia francuska</option>
+      </select>
+
+      <label>Poziom zaawansowania:</label>
+      <label><input type="radio" name="poziom" value="podstawowy" required> Podstawowy</label>
+      <label><input type="radio" name="poziom" value="sredni"> Średni</label>
+
+      <label for="termin">Termin warsztatu:</label>
+      <input type="date" id="termin" required>
+      <span class="blad" id="bladData"></span>
+
+      <button type="submit">Zapisz się</button>
+    </form>
+
+    <div id="potwierdzenie"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  margin-top: 40px;
+}
+
+h1 {
+  text-align: center;
+  color: #595959;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+  color: #595959;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+}
+
+input[type="radio"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+button {
+  margin-top: 20px;
+  background-color: #bfa18f;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #a78872;
+}
+
+.blad {
+  color: red;
+  font-size: 0.9em;
+}
+
+#potwierdzenie {
+  margin-top: 20px;
+  color: green;
+  font-weight: bold;
+}
+
+
+
+
+
+document.getElementById("formularzWarsztaty").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Pobieranie wartości z pól
+  const imieNazwisko = document.getElementById("imieNazwisko").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const termin = document.getElementById("termin").value;
+  const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
+  // Czyszczenie błędów
+  document.getElementById("bladNazwisko").textContent = "";
+  document.getElementById("bladEmail").textContent = "";
+  document.getElementById("bladData").textContent = "";
+  document.getElementById("potwierdzenie").textContent = "";
+
+  let poprawne = true;
+
+  // Walidacja nazwiska – minimum 2 znaki (zakładamy, że całe pole to imię i nazwisko)
+  if (imieNazwisko.length < 2) {
+    document.getElementById("bladNazwisko").textContent = "Imię i nazwisko musi mieć co najmniej 2 znaki.";
+    poprawne = false;
+  }
+
+  // Walidacja e-maila przez regex
+  if (!emailRegex.test(email)) {
+    document.getElementById("bladEmail").textContent = "Wprowadź poprawny adres e-mail.";
+    poprawne = false;
+  }
+
+  // Walidacja daty – nie może być wcześniejsza niż dziś
+  const dzisiaj = new Date().toISOString().split("T")[0];
+  if (termin < dzisiaj) {
+    document.getElementById("bladData").textContent = "Termin nie może być z przeszłości.";
+    poprawne = false;
+  }
+
+  // Jeśli dane poprawne, pokaż potwierdzenie
+  if (poprawne) {
+    document.getElementById("potwierdzenie").textContent = "Dziękujemy za zapis! Skontaktujemy się mailowo.";
+    document.getElementById("formularzWarsztaty").reset();
+  }
+});
