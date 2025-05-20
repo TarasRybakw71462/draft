@@ -1,0 +1,76 @@
+document.getElementById("miotForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  // Pobierz dane
+  const rasa = document.getElementById("rasa").value;
+  const ilosc = parseInt(document.getElementById("ilosc").value);
+  const matka = document.getElementById("matka").value.trim();
+  const ojciec = document.getElementById("ojciec").value.trim();
+  const data = document.getElementById("data").value;
+  const uwagi = document.getElementById("uwagi").value;
+
+  // Wyczyść stare błędy
+  usunBledy();
+
+  let poprawne = true;
+
+  // Walidacja rasy
+  if (rasa === "") {
+    pokazBlad("rasa", "Wybierz rasę.");
+    poprawne = false;
+  }
+
+  // Walidacja liczby
+  if (isNaN(ilosc) || ilosc < 1 || ilosc > 12) {
+    pokazBlad("ilosc", "Liczba kociąt musi być między 1 a 12.");
+    poprawne = false;
+  }
+
+  // Walidacja imion
+  if (matka.length < 2) {
+    pokazBlad("matka", "Imię matki musi mieć co najmniej 2 znaki.");
+    poprawne = false;
+  }
+
+  if (ojciec.length < 2) {
+    pokazBlad("ojciec", "Imię ojca musi mieć co najmniej 2 znaki.");
+    poprawne = false;
+  }
+
+  // Walidacja daty
+  const dzisiaj = new Date().toISOString().split("T")[0];
+  if (data > dzisiaj) {
+    pokazBlad("data", "Data narodzin nie może być w przyszłości.");
+    poprawne = false;
+  }
+
+  // Jeżeli wszystko OK – pokaż kartę miotu
+  if (poprawne) {
+    const wynik = document.getElementById("wynik");
+    wynik.innerHTML = `
+      <h3>Zarejestrowano miot</h3>
+      <p><strong>Rasa:</strong> ${rasa}</p>
+      <p><strong>Liczba kociąt:</strong> ${ilosc}</p>
+      <p><strong>Matka:</strong> ${matka}</p>
+      <p><strong>Ojciec:</strong> ${ojciec}</p>
+      <p><strong>Data narodzin:</strong> ${data}</p>
+      <p><strong>Uwagi:</strong> ${uwagi || "Brak"}</p>
+    `;
+    wynik.style.display = "block";
+    document.getElementById("miotForm").reset();
+  }
+});
+
+function pokazBlad(id, wiadomosc) {
+  const pole = document.getElementById(id);
+  const blad = document.createElement("span");
+  blad.className = "blad";
+  blad.innerText = wiadomosc;
+  pole.classList.add("blad-input");
+  pole.insertAdjacentElement("afterend", blad);
+}
+
+function usunBledy() {
+  document.querySelectorAll(".blad").forEach(el => el.remove());
+  document.querySelectorAll(".blad-input").forEach(el => el.classList.remove("blad-input"));
+}
