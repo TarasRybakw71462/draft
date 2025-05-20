@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zapisy na zajęcia fitness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Zapisy na zajęcia fitness</h1>
+
+    <form id="fitnessForm">
+      <label for="typZajec">Rodzaj zajęć:</label>
+      <select id="typZajec" name="typZajec" required>
+        <option value="">-- Wybierz --</option>
+        <option value="Pilates">Pilates</option>
+        <option value="Crossfit">Crossfit</option>
+        <option value="Stretching">Stretching</option>
+      </select>
+
+      <label for="dzien">Dzień tygodnia:</label>
+      <select id="dzien" name="dzien" required>
+        <option value="">-- Wybierz --</option>
+        <option>Poniedziałek</option>
+        <option>Wtorek</option>
+        <option>Środa</option>
+        <option>Czwartek</option>
+        <option>Piątek</option>
+        <option>Sobota</option>
+        <option>Niedziela</option>
+      </select>
+
+      <label for="godzina">Godzina zajęć:</label>
+      <input type="time" id="godzina" name="godzina" required>
+
+      <label for="karnet">Rodzaj karnetu:</label>
+      <select id="karnet" name="karnet" required>
+        <option value="">-- Wybierz --</option>
+        <option value="miesieczny">Miesięczny</option>
+        <option value="10">10 wejść</option>
+        <option value="open">Open</option>
+      </select>
+
+      <label for="imie">Imię:</label>
+      <input type="text" id="imie" name="imie" required>
+
+      <label for="nazwisko">Nazwisko:</label>
+      <input type="text" id="nazwisko" name="nazwisko" required>
+
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="telefon">Numer telefonu:</label>
+      <input type="tel" id="telefon" name="telefon" placeholder="np. 123456789" required>
+
+      <div class="koszt">
+        <strong>Koszt całkowity: <span id="cena">0</span> zł</strong>
+      </div>
+
+      <button type="submit" id="submitBtn">Zapisz się</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
