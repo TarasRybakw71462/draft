@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Rejestracja miotu kotów rasowych</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Rejestracja miotu</h1>
+
+    <form id="miotForm">
+      <label for="rasa">Rasa:</label>
+      <select id="rasa" required>
+        <option value="">-- Wybierz --</option>
+        <option value="Maine Coon">Maine Coon</option>
+        <option value="Perski">Perski</option>
+        <option value="Sfinks">Sfinks</option>
+      </select>
+
+      <label for="ilosc">Liczba kociąt:</label>
+      <input type="number" id="ilosc" min="1" max="12" required>
+
+      <label for="matka">Imię matki:</label>
+      <input type="text" id="matka" required>
+
+      <label for="ojciec">Imię ojca:</label>
+      <input type="text" id="ojciec" required>
+
+      <label for="data">Data narodzin:</label>
+      <input type="date" id="data" required>
+
+      <label for="uwagi">Uwagi:</label>
+      <textarea id="uwagi" rows="4"></textarea>
+
+      <button type="submit">Zarejestruj miot</button>
+    </form>
+
+    <div id="wynik" class="karta"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
