@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Dziennik połowów wędkarskich</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Dziennik połowów</h1>
+
+    <!-- Formularz dodawania połowu -->
+    <form id="formularzPolowu">
+      <label for="gatunek">Gatunek ryby:</label>
+      <input type="text" id="gatunek" required>
+      <span class="blad" id="bladGatunek"></span>
+
+      <label for="data">Data połowu:</label>
+      <input type="date" id="data" required>
+      <span class="blad" id="bladData"></span>
+
+      <label for="masa">Masa (kg):</label>
+      <input type="number" step="0.1" id="masa" required>
+      <span class="blad" id="bladMasa"></span>
+
+      <label for="dlugosc">Długość (cm):</label>
+      <input type="number" id="dlugosc" required>
+      <span class="blad" id="bladDlugosc"></span>
+
+      <label for="miejsce">Miejsce połowu:</label>
+      <input type="text" id="miejsce" placeholder="Np. Jezioro Wigry, pomost 3">
+
+      <button type="submit">Dodaj wpis</button>
+    </form>
+
+    <h2>Historia połowów</h2>
+    <div id="listaWpisow"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+body {
+  font-family: Arial, sans-serif;
+  background: #e0f7fa;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #2a7a5e; /* Zieleń */
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #29bb5b; /* Zieleń */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #228c45;
+}
+
+.blad {
+  color: red;
+  font-size: 0.9em;
+}
+
+#listaWpisow {
+  margin-top: 20px;
+}
+
+.wpis {
+  background: #f0f4f8;
+  border-left: 4px solid #29bb5b;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+
+
+
+
+document.getElementById("formularzPolowu").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Pobieranie wartości
+  var gatunek = document.getElementById("gatunek").value.trim();
+  var data = document.getElementById("data").value;
+  var masa = parseFloat(document.getElementById("masa").value);
+  var dlugosc = parseInt(document.getElementById("dlugosc").value);
+  var miejsce = document.getElementById("miejsce").value.trim();
+
+  // Czyszczenie błędów
+  document.getElementById("bladGatunek").textContent = "";
+  document.getElementById("bladData").textContent = "";
+  document.getElementById("bladMasa").textContent = "";
+  document.getElementById("bladDlugosc").textContent = "";
+
+  var poprawne = true;
+
+  // Walidacja gatunku – min. 3 litery, wielka litera na początku
+  var wzorzecGatunek = /^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]{2,}$/;
+  if (!wzorzecGatunek.test(gatunek)) {
+    document.getElementById("bladGatunek").textContent = "Gatunek musi zaczynać się wielką literą i mieć min. 3 litery.";
+    poprawne = false;
+  }
+
+  // Walidacja daty – nie może być z przyszłości
+  var dzisiaj = new Date().toISOString().split("T")[0];
+  if (data > dzisiaj) {
+    document.getElementById("bladData").textContent = "Data nie może być z przyszłości.";
+    poprawne = false;
+  }
+
+  // Walidacja masy – liczba z dokładnością do 0.1, np. 0.5–100 kg
+  if (isNaN(masa) || masa < 0.1 || masa > 100) {
+    document.getElementById("bladMasa").textContent = "Masa musi być między 0.1 a 100 kg.";
+    poprawne = false;
+  }
+
+  // Walidacja długości – tylko liczby 5–200 cm
+  if (isNaN(dlugosc) || dlugosc < 5 || dlugosc > 200) {
+    document.getElementById("bladDlugosc").textContent = "Długość musi być między 5 a 200 cm.";
+    poprawne = false;
+  }
+
+  if (!poprawne) return;
+
+  // Tworzenie nowego wpisu
+  var wpis = document.createElement("div");
+  wpis.className = "wpis";
+
+  var tekst = "🎣 Gatunek: " + gatunek +
+    " | Data: " + data +
+    " | Masa: " + masa + " kg" +
+    " | Długość: " + dlugosc + " cm";
+
+  if (miejsce) {
+    tekst += " | Miejsce: " + miejsce;
+  }
+
+  wpis.textContent = tekst;
+
+  document.getElementById("listaWpisow").appendChild(wpis);
+
+  // Czyszczenie formularza
+  document.getElementById("formularzPolowu").reset();
+});
