@@ -1,0 +1,90 @@
+document.getElementById('fitnessForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const godzina = document.getElementById('godzina').value;
+  const email = document.getElementById('email').value;
+  const telefon = document.getElementById('telefon').value;
+
+  usunWiadomosciBledow();
+
+  let poprawne = true;
+
+  // Walidacja godziny
+  if (!czyGodzinaPoprawna(godzina)) {
+    pokazBlad('godzina', "Godzina zajęć musi być między 06:00 a 22:00.");
+    poprawne = false;
+  }
+
+  // Walidacja emaila
+  const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+  if (!emailRegex.test(email)) {
+    pokazBlad('email', "Podaj poprawny adres e-mail.");
+    poprawne = false;
+  }
+
+  // Walidacja telefonu
+  const telefonRegex = /^\d{9}$/;
+  if (!telefonRegex.test(telefon)) {
+    pokazBlad('telefon', "Numer telefonu musi zawierać dokładnie 9 cyfr.");
+    poprawne = false;
+  }
+
+  // Jeśli poprawne, pokaż alert
+  if (poprawne) {
+    alert("Zapisano pomyślnie!");
+    document.getElementById('fitnessForm').reset();
+    document.getElementById('cena').textContent = "0";
+  }
+});
+
+// Sprawdza godzinę
+function czyGodzinaPoprawna(godzina) {
+  const [godz, min] = godzina.split(':').map(Number);
+  const czas = godz + min / 60;
+  return czas >= 6 && czas <= 22;
+}
+
+// Pokazuje błąd
+function pokazBlad(poleId, wiadomosc) {
+  const pole = document.getElementById(poleId);
+  const span = document.createElement('span');
+  span.className = 'blad';
+  span.innerText = wiadomosc;
+  pole.classList.add('blad-input');
+  pole.insertAdjacentElement('afterend', span);
+}
+
+// Usuwa stare błędy
+function usunWiadomosciBledow() {
+  document.querySelectorAll('.blad').forEach(el => el.remove());
+  document.querySelectorAll('.blad-input').forEach(el => el.classList.remove('blad-input'));
+}
+
+// Obliczanie ceny na podstawie zajęć i karnetu
+document.getElementById('typZajec').addEventListener('change', obliczCene);
+document.getElementById('karnet').addEventListener('change', obliczCene);
+
+function obliczCene() {
+  const typ = document.getElementById('typZajec').value;
+  const karnet = document.getElementById('karnet').value;
+  const cenaElement = document.getElementById('cena');
+
+  const cenyBazowe = {
+    'Pilates': 20,
+    'Crossfit': 30,
+    'Stretching': 15
+  };
+
+  const mnoznikiKarnetu = {
+    'miesieczny': 20,
+    '10': 10,
+    'open': 40
+  };
+
+  if (typ && karnet) {
+    const cena = cenyBazowe[typ] * mnoznikiKarnetu[karnet];
+    cenaElement.textContent = cena;
+  } else {
+    cenaElement.textContent = "0";
+  }
+}
