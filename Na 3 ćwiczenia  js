@@ -1,0 +1,65 @@
+document.getElementById('fitnessForm').addEventListener('submit', function(e) {
+  e.preventDefault(); // zablokuj wysłanie formularza
+
+  // Pobierz dane
+  const godzina = document.getElementById('godzina').value;
+  const email = document.getElementById('email').value;
+  const telefon = document.getElementById('telefon').value;
+
+  // Wyczyść stare błędy
+  usunWiadomosciBledow();
+
+  let poprawne = true;
+
+  // Walidacja godziny
+  if (!czyGodzinaPoprawna(godzina)) {
+    pokazBlad('godzina', "Godzina zajęć musi być między 06:00 a 22:00.");
+    poprawne = false;
+  }
+
+  // Walidacja e-mail 
+  const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+  if (!emailRegex.test(email)) {
+    pokazBlad('email', "Podaj poprawny adres e-mail.");
+    poprawne = false;
+  }
+
+  // Walidacja telefonu
+  const telefonRegex = /^\d{9}$/;
+  if (!telefonRegex.test(telefon)) {
+    pokazBlad('telefon', "Numer telefonu musi zawierać dokładnie 9 cyfr.");
+    poprawne = false;
+  }
+
+  // Sukces
+  if (poprawne) {
+    alert("Zapisano pomyślnie! Dziękujemy za rejestrację.");
+    document.getElementById('fitnessForm').reset();
+  }
+});
+
+// Sprawdza czy godzina jest w zakresie
+function czyGodzinaPoprawna(godzina) {
+  const [godz, min] = godzina.split(':').map(Number);
+  const czas = godz + min / 60;
+  return czas >= 6 && czas <= 22;
+}
+
+// Pokazuje błąd pod polem
+function pokazBlad(poleId, wiadomosc) {
+  const pole = document.getElementById(poleId);
+  const span = document.createElement('span');
+  span.className = 'blad';
+  span.innerText = wiadomosc;
+  pole.classList.add('blad-input');
+  pole.insertAdjacentElement('afterend', span);
+}
+
+// Usuwa wszystkie błędy
+function usunWiadomosciBledow() {
+  const bledy = document.querySelectorAll('.blad');
+  bledy.forEach(el => el.remove());
+
+  const inputy = document.querySelectorAll('.blad-input');
+  inputy.forEach(input => input.classList.remove('blad-input'));
+}
