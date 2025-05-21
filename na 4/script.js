@@ -80,7 +80,7 @@ form.addEventListener("submit", (e) => {
 
     // Jeśli wszystko jest OK — potwierdzenie i reset
   if (valid) {
-    alert("Zamówienie jest zlożone !");
+    alert("Wszystko w porządku!");
     form.reset();
     document.querySelectorAll(".quantity").forEach(q => q.disabled = true);
     updatePrice();
